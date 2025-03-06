@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: CornSilk;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        button:hover:not(:disabled) {
+            background-color: #0056b3;
+        }
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome!</h1>
+        <p>Please enter your 7-character code to proceed:</p>
+        <input type="text" id="codeInput" placeholder="Enter your code" maxlength="7">
+        <button id="submitButton" onclick="validateCode()">Submit</button>
+        <p class="error" id="errorMessage"></p>
+    </div>
+
+    <script>
+        const validCode = "sl358Ib";
+        let attempts = 0;
+        const maxAttempts = 5;
+
+        function validateCode() {
+            const codeInput = document.getElementById("codeInput").value;
+            const errorMessage = document.getElementById("errorMessage");
+            const submitButton = document.getElementById("submitButton");
+
+            if (codeInput === validCode) {
+                window.location.href = "index.htm";
+            } else {
+                attempts++;
+                if (attempts >= maxAttempts) {
+                    errorMessage.textContent = "Too many attempts. Access disabled.";
+                    submitButton.disabled = true;
+                } else {
+                    errorMessage.textContent = `Invalid code. You have ${maxAttempts - attempts} attempt(s) left.`;
+                }
+            }
+        }
+    </script>
+</body>
+</html>
